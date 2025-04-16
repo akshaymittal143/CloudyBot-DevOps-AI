@@ -31,6 +31,20 @@ source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate   # Windows
 ```
 
+#### Dependencies and Requirements
+We list all required Python packages in requirements.txt. This ensures anyone setting up the project can install the correct libraries easily. Here’s what you should include in requirements.txt:
+```bash
+streamlit==1.25.0       # Streamlit for the web interface (you can use the latest version)
+openai==0.27.8          # OpenAI API client library
+transformers==4.31.0    # Hugging Face Transformers for local model usage
+python-dotenv==1.0.0    # For loading .env files (optional but recommended)
+```
+
+- Streamlit: for the UI.
+- OpenAI: official OpenAI Python SDK to communicate with OpenAI models.
+- Transformers: Hugging Face library to run local language models.
+- python-dotenv: to load environment variables from a .env file.
+
 ### Step 3: Install Dependencies
 ```bash
 pip install --upgrade pip        # upgrade pip if you want (optional)
@@ -40,11 +54,11 @@ pip install -r requirements.txt
 ### Step 4: Configuration (.env file)
 Copy `.env.example` to `.env` and edit:
 ```ini
-OPENAI_API_KEY=<your-openai-api-key>
-OPENAI_MODEL=gpt-3.5-turbo
-HUGGINGFACE_MODEL=google/flan-t5-base
-#HUGGINGFACE_API_TOKEN=<your-huggingface-api-token>
-MODEL_PROVIDER=OPENAI
+# .env.example - example configuration for CloudyBot
+OPENAI_API_KEY=YOUR_OPENAI_API_KEY_HERE
+USE_OPENAI=true   # "true" to use OpenAI API, "false" to use local Hugging Face model
+# HF_MODEL=gpt2   # (Optional) specify a custom Hugging Face model name if desired
+
 
 ```
 
