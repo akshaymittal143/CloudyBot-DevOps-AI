@@ -82,6 +82,13 @@ Visit [http://localhost:8501](http://localhost:8501).
 - Hold Ctrl and click the URL, or open your web browser and navigate to it. You should see the CloudyBot interface come up.
 
 
+### Sample Run Screenshot
+
+Below is a screenshot of CloudyBot in action, showcasing its conversational interface and ability to answer DevOps-related queries:
+
+![Sample Run of CloudyBot](resources/1.png)
+
+
 ## Deployment on Streamlit Cloud
 
 - Deploy from GitHub via [Streamlit Cloud](https://streamlit.io).
