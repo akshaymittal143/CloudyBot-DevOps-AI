@@ -1,9 +1,3 @@
-import os
-
-import torch
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-from dotenv import load_dotenv
-
 """
 hf_client.py
 This module provides functionality to load a Hugging Face model and tokenizer, 
@@ -34,6 +28,15 @@ Functions:
     - str: The generated response from the model, or an error message if the 
       model is not loaded or an error occurs during generation.
 """
+
+
+import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"  # Add this before other imports
+
+import numpy as np  # Import numpy before torch
+import torch
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()

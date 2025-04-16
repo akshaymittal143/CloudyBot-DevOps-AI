@@ -113,6 +113,19 @@ Below is a screenshot of CloudyBot in action, showcasing its conversational inte
 - Deploy from GitHub via [Streamlit Cloud](https://streamlit.io).
 - Configure secrets (`OPENAI_API_KEY`) through Streamlit secrets.
 
+
+## Streamlit Cloud Deployment
+
+1. Fork this repository
+2. Go to [Streamlit Cloud](https://share.streamlit.io)
+3. Deploy from GitHub
+4. Add these secrets in Streamlit Cloud dashboard:
+   ```plaintext
+   OPENAI_API_KEY = "your-api-key"
+   MODEL_PROVIDER = "OPENAI"
+   OPENAI_MODEL = "gpt-3.5-turbo"
+   ```
+   
 ## Running in Google Colab
 
 In a Colab notebook:

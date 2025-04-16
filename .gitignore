@@ -185,7 +185,12 @@ Session.vim
 .Trashes
 ehthumbs.db
 Thumbs.db
-
+.env
+__pycache__/
+*.pyc
+.DS_Store
+.streamlit/secrets.toml
+venv/
 
 # --- Secrets ---
 # Be careful about committing secrets! Use environment variables or secret management tools.
