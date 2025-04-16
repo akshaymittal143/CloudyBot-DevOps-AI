@@ -26,7 +26,7 @@ if user_input:
     # Add the bot's answer to the chat history
     st.session_state["history"].append(("bot", answer))
     # Clear the input box for next question
-    st.experimental_rerun()
+    st.rerun()
 
 # Display the conversation history
 for role, msg in st.session_state["history"]:
