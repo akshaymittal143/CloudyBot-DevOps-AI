@@ -1,9 +1,9 @@
 --index-url https://pypi.org/simple
-numpy<2.0.0
-torch>=2.1.0
-streamlit>=1.25.0
+streamlit>=1.28.0
 openai>=0.27.8
 transformers>=4.31.0
 python-dotenv>=1.0.0
 protobuf>=4.21.0
+torch>=2.1.0
+numpy<2.0.0
 --only-binary :all: pillow>=9.5.0

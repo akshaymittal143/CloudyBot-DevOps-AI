@@ -22,6 +22,11 @@ streamlit.io
 ```bash
 git clone https://github.com/<your-username>/cloudybot.git
 cd cloudybot
+
+or 
+
+# Create project files
+touch bot.py openai_client.py hf_client.py app.py requirements.txt .env.example README.md
 ```
 
 ### Step 2: Virtual Environment Setup (Optional)
@@ -34,10 +39,15 @@ venv\Scripts\activate   # Windows
 #### Dependencies and Requirements
 We list all required Python packages in requirements.txt. This ensures anyone setting up the project can install the correct libraries easily. Here’s what you should include in requirements.txt:
 ```bash
-streamlit==1.25.0       # Streamlit for the web interface (you can use the latest version)
-openai==0.27.8          # OpenAI API client library
-transformers==4.31.0    # Hugging Face Transformers for local model usage
-python-dotenv==1.0.0    # For loading .env files (optional but recommended)
+--index-url https://pypi.org/simple
+streamlit>=1.28.0
+openai>=0.27.8
+transformers>=4.31.0
+python-dotenv>=1.0.0
+protobuf>=4.21.0
+torch>=2.1.0
+numpy<2.0.0
+--only-binary :all: pillow>=9.5.0
 ```
 
 - Streamlit: for the UI.
@@ -47,7 +57,7 @@ python-dotenv==1.0.0    # For loading .env files (optional but recommended)
 
 ### Step 3: Install Dependencies
 ```bash
-pip install --upgrade pip        # upgrade pip if you want (optional)
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 ```
 
