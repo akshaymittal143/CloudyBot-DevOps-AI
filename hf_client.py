@@ -8,22 +8,17 @@ load_dotenv()
 
 # Define model path from environment or use default
 DEFAULT_MODEL = os.getenv("HUGGINGFACE_MODEL", "google/flan-t5-base")
-HF_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")  # Optional for some models
+HF_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
+
+# Set tokenizer parallelism
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Global variables for model and tokenizer
 model = None
 tokenizer = None
 
 def load_model(model_path=None):
-    """
-    Load the Hugging Face model and tokenizer.
-    
-    Args:
-        model_path (str, optional): Path to the model on Hugging Face Hub
-        
-    Returns:
-        tuple: (model, tokenizer)
-    """
+    """Load the Hugging Face model and tokenizer."""
     global model, tokenizer
     
     if model is None or tokenizer is None:
@@ -43,10 +38,11 @@ def load_model(model_path=None):
             model = AutoModelForSeq2SeqLM.from_pretrained(
                 model_path,
                 token=HF_TOKEN if HF_TOKEN else None,
-                device_map="auto" if torch.cuda.is_available() else None
+                device_map="auto"
             )
             
             print(f"Model loaded successfully: {model_path}")
+            return model, tokenizer
             
         except Exception as e:
             print(f"Error loading model: {str(e)}")
@@ -54,68 +50,37 @@ def load_model(model_path=None):
     
     return model, tokenizer
 
-def get_hf_response(prompt, conversation_history=None, model_path=None):
-    """
-    Get a response from a Hugging Face model.
-    
-    Args:
-        prompt (str): The user query
-        conversation_history (list, optional): Previous conversation messages
-        model_path (str, optional): Path to the model on Hugging Face Hub
-        
-    Returns:
-        str: The AI response
-    """
-    # Load the model and tokenizer
-    model, tokenizer = load_model(model_path)
+def ask_hf(question, chat_history=None, temperature=0.7):
+    """Generate response using Hugging Face model."""
+    model, tokenizer = load_model()
     
     if model is None or tokenizer is None:
-        return "Error: Failed to load the Hugging Face model."
-    
-    # Prepare context with history if provided
-    context = ""
-    if conversation_history:
-        # Format conversation history
-        for msg in conversation_history:
-            role = msg.get("role", "")
-            content = msg.get("content", "")
-            if role == "user":
-                context += f"User: {content}\n"
-            elif role == "assistant":
-                context += f"CloudyBot: {content}\n"
-    
-    # Prepare full prompt including DevOps context
-    full_prompt = (
-        "You are CloudyBot, a helpful DevOps assistant. "
-        f"{context}"
-        f"User: {prompt}\n"
-        "CloudyBot:"
-    )
+        return "Error: Model not loaded properly"
     
     try:
-        # Tokenize the input
-        inputs = tokenizer(full_prompt, return_tensors="pt", truncation=True, max_length=512)
+        # Prepare input text
+        input_text = question
+        if chat_history:
+            # Format chat history if provided
+            history_text = "\n".join([f"{m['role']}: {m['content']}" for m in chat_history[-3:]])
+            input_text = f"{history_text}\nuser: {question}"
         
-        # Move to GPU if available
-        if torch.cuda.is_available():
-            inputs = inputs.to("cuda")
+        # Tokenize input
+        inputs = tokenizer(input_text, return_tensors="pt", padding=True, truncation=True)
         
         # Generate response
         outputs = model.generate(
-            **inputs, 
-            max_length=200,
+            **inputs,
+            max_length=512,
+            do_sample=True,  # Enable sampling
+            temperature=temperature,
+            top_p=0.9,
             num_return_sequences=1,
-            temperature=0.7
         )
         
-        # Decode the response
+        # Decode response
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
-        
-        # Extract only the assistant's response
-        if "CloudyBot:" in response:
-            response = response.split("CloudyBot:")[-1].strip()
-        
         return response
-    
+        
     except Exception as e:
         return f"Error generating response: {str(e)}"
