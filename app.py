@@ -23,51 +23,88 @@ Dependencies:
     - Custom bot module for AI interaction
 Usage:
     Run the application using:
-    ```
-    streamlit run app.py
-    ```
+    `streamlit run app.py`
 Note:
     Requires appropriate API keys and environment variables to be set in a .env file
     for full functionality.
 """
 # app.py
 import os
-
 import streamlit as st
 from dotenv import load_dotenv
 from bot import ask_bot
 
-# Load environment variables
-load_dotenv()
-
-# Get default provider and models
-DEFAULT_PROVIDER = os.getenv("MODEL_PROVIDER", "OPENAI").upper()
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
-HUGGINGFACE_MODEL = os.getenv("HUGGINGFACE_MODEL", "google/flan-t5-base")
-
-# Page configuration
+# Page configuration with custom styling
 st.set_page_config(
     page_title="CloudyBot - DevOps Assistant",
     page_icon="☁️",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
+
+# Load environment variables
+load_dotenv()
+
+# Helper function to get configuration value
+def get_config(key, default_value):
+    """Get configuration from Streamlit secrets or environment variables"""
+    try:
+        return st.secrets.get(key, os.getenv(key, default_value))
+    except:
+        return os.getenv(key, default_value)
+
+# Get environment variables with fallbacks
+DEFAULT_PROVIDER = st.secrets.get("MODEL_PROVIDER", os.getenv("MODEL_PROVIDER", "OPENAI")).upper()
+OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY", ""))
+OPENAI_MODEL = st.secrets.get("OPENAI_MODEL", os.getenv("OPENAI_MODEL", "gpt-3.5-turbo"))
+HUGGINGFACE_MODEL = st.secrets.get("HUGGINGFACE_MODEL", os.getenv("HUGGINGFACE_MODEL", "google/flan-t5-base"))
 
 # Initialize session state for chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Custom CSS
+st.markdown("""
+    <style>
+    .stApp {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .stButton button {
+        background-color: #007fff;
+        color: white;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+    }
+    .stButton button:hover {
+        background-color: #0056b3;
+    }
+    .css-1d391kg {
+        padding: 2rem 1rem;
+    }
+    .stMarkdown {
+        font-size: 1.1rem;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 def main():
     # Title and description
     st.title("☁️ CloudyBot: DevOps Assistant")
-    st.markdown(
-        """
+    st.markdown("""
+        <div style='background-color: #f8f9fa; padding: 1rem; border-radius: 5px; margin-bottom: 1rem;'>
         CloudyBot is an AI-powered assistant for DevOps and cloud-related questions.
         Ask about Kubernetes, Docker, CI/CD, cloud providers, or any DevOps practices!
-        """
-    )
+        </div>
+    """, unsafe_allow_html=True)
     
     # Sidebar for settings
     with st.sidebar:
+        st.markdown("""
+            <div style='background-color: #e9ecef; padding: 1rem; border-radius: 5px;'>
+            <h2 style='color: #007fff; margin-bottom: 1rem;'>Settings</h2>
+            </div>
+        """, unsafe_allow_html=True)
         st.header("Settings")
         
         # Model provider selection
