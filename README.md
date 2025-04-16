@@ -3,6 +3,8 @@
 
 CloudyBot is an AI-powered DevOps assistant chatbot designed to help with cloud and DevOps-related queries and tasks. It provides a conversational interface using OpenAI's GPT models or Hugging Face's local models.
 
+Live Demo on [StreamLit.app](https://akshaymittal143-ai-in-the-cloud-demo-app-deploy-r9k6vd.streamlit.app/)
+
 ## Features
 
 - **Dual AI Backend:** Supports OpenAI (requires API key) and local Hugging Face models (FLAN-T5).
@@ -125,7 +127,7 @@ Below is a screenshot of CloudyBot in action, showcasing its conversational inte
    MODEL_PROVIDER = "OPENAI"
    OPENAI_MODEL = "gpt-3.5-turbo"
    ```
-   
+
 ## Running in Google Colab
 
 In a Colab notebook:
