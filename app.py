@@ -1,4 +1,38 @@
+"""
+A Streamlit-based web application for a DevOps AI assistant called CloudyBot.
+This application provides an interactive chat interface where users can ask questions
+about DevOps, cloud computing, and related technologies. It supports multiple AI providers
+(OpenAI and Hugging Face) and allows users to customize model settings.
+Environment Variables:
+    MODEL_PROVIDER (str): Default AI provider ('OPENAI' or 'HUGGINGFACE')
+    OPENAI_MODEL (str): Default OpenAI model name
+    HUGGINGFACE_MODEL (str): Default Hugging Face model name
+    OPENAI_API_KEY (str): API key for OpenAI services
+Features:
+    - Interactive chat interface
+    - Multiple AI provider support (OpenAI and Hugging Face)
+    - Customizable model selection
+    - Chat history management
+    - Example queries for quick testing
+    - Clear chat functionality
+    - Real-time response generation
+    - Responsive layout with sidebar settings
+Dependencies:
+    - streamlit
+    - python-dotenv
+    - Custom bot module for AI interaction
+Usage:
+    Run the application using:
+    ```
+    streamlit run app.py
+    ```
+Note:
+    Requires appropriate API keys and environment variables to be set in a .env file
+    for full functionality.
+"""
+# app.py
 import os
+
 import streamlit as st
 from dotenv import load_dotenv
 from bot import ask_bot

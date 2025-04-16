@@ -1,7 +1,39 @@
 import os
+
 import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from dotenv import load_dotenv
+
+"""
+hf_client.py
+This module provides functionality to load a Hugging Face model and tokenizer, 
+and to generate responses using the loaded model. It supports environment 
+variable configuration for the model path and Hugging Face API token.
+Functions:
+----------
+- load_model(model_path=None):
+    Loads the Hugging Face model and tokenizer. If the model and tokenizer 
+    are already loaded, it returns the existing instances. The model path 
+    can be specified as an argument or defaults to the value of the 
+    `HUGGINGFACE_MODEL` environment variable.
+    Parameters:
+    - model_path (str, optional): Path or name of the Hugging Face model to load.
+    Returns:
+    - tuple: A tuple containing the loaded model and tokenizer, or (None, None) 
+      if an error occurs during loading.
+- get_hf_response(question, chat_history=None, temperature=0.7):
+    Generates a response to a given question using the loaded Hugging Face model. 
+    Optionally includes chat history in the input for context.
+    Parameters:
+    - question (str): The input question or prompt for the model.
+    - chat_history (list of dict, optional): A list of dictionaries representing 
+      the chat history. Each dictionary should have keys 'role' and 'content'.
+    - temperature (float, optional): Sampling temperature for response generation. 
+      Higher values result in more diverse outputs. Default is 0.7.
+    Returns:
+    - str: The generated response from the model, or an error message if the 
+      model is not loaded or an error occurs during generation.
+"""
 
 # Load environment variables
 load_dotenv()
