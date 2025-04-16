@@ -27,30 +27,17 @@ def load_model(model_path=None):
         
         try:
             print(f"Loading model: {model_path}")
-            
-            # Load tokenizer
-            tokenizer = AutoTokenizer.from_pretrained(
-                model_path, 
-                token=HF_TOKEN if HF_TOKEN else None
-            )
-            
-            # Load model
-            model = AutoModelForSeq2SeqLM.from_pretrained(
-                model_path,
-                token=HF_TOKEN if HF_TOKEN else None,
-                device_map="auto"
-            )
-            
+            tokenizer = AutoTokenizer.from_pretrained(model_path)
+            model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
             print(f"Model loaded successfully: {model_path}")
             return model, tokenizer
-            
         except Exception as e:
             print(f"Error loading model: {str(e)}")
             return None, None
     
     return model, tokenizer
 
-def ask_hf(question, chat_history=None, temperature=0.7):
+def get_hf_response(question, chat_history=None, temperature=0.7):
     """Generate response using Hugging Face model."""
     model, tokenizer = load_model()
     
@@ -58,27 +45,21 @@ def ask_hf(question, chat_history=None, temperature=0.7):
         return "Error: Model not loaded properly"
     
     try:
-        # Prepare input text
         input_text = question
         if chat_history:
-            # Format chat history if provided
             history_text = "\n".join([f"{m['role']}: {m['content']}" for m in chat_history[-3:]])
             input_text = f"{history_text}\nuser: {question}"
         
-        # Tokenize input
         inputs = tokenizer(input_text, return_tensors="pt", padding=True, truncation=True)
-        
-        # Generate response
         outputs = model.generate(
             **inputs,
             max_length=512,
-            do_sample=True,  # Enable sampling
+            do_sample=True,
             temperature=temperature,
             top_p=0.9,
             num_return_sequences=1,
         )
         
-        # Decode response
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
         return response
         
