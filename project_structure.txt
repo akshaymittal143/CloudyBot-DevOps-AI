@@ -1,0 +1,25 @@
+AI-in-the-Cloud-Demo/
+├── src/
+│   ├── clients/
+│   │   ├── __init__.py
+│   │   ├── openai_client.py
+│   │   └── hf_client.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   └── bot.py
+│   └── utils/
+│       ├── __init__.py
+│       └── logger.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   └── test_bot.py
+├── docs/
+│   ├── API.md
+│   └── CONTRIBUTING.md
+├── .env.example
+├── .gitignore
+├── requirements.txt
+├── requirements-dev.txt
+├── setup.py
+└── README.md

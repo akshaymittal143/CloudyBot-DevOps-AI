@@ -181,8 +181,6 @@ streamlit run app.py --logger.level=debug
 4. Push to branch
 5. Open a Pull Request
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
 ## Future Roadmap
 
 CloudyBot is a work in progress. There are many ways it could be enhanced, and we welcome ideas or contributions! If you're interested in contributing, please check out our [CONTRIBUTING.md](https://github.com/akshaymittal143/CloudyBot-DevOps-AI/blob/main/CONTRIBUTING.md) file for guidelines or visit our [GitHub Issues page](https://github.com/akshaymittal143/CloudyBot-DevOps-AI/issues) to see open tasks and feature requests.
@@ -205,6 +203,10 @@ Feel free to raise issues or pull requests on the GitHub repo if you have ideas 
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+**Akshay Mittal** - [GitHub Profile](https://github.com/akshaymittal143)
 
 ---
 

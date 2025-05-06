@@ -222,3 +222,4 @@ pids/
 *.bak
 *.cache
 .env
+.gitconfig
