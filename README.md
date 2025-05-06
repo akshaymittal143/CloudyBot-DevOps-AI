@@ -67,6 +67,9 @@ cp .env.example .env     # Edit .env with your API keys
 
 # Run application
 streamlit run app.py
+
+# To deactivate virtual environment when done
+deactivate  # Works for both Windows and Unix-like systems
 ```
 
 ## Development Setup
