@@ -25,7 +25,7 @@ This project is maintained by [Akshay Mittal](https://github.com/akshaymittal143
 Feel free to:
 * Open an issue
 * Contact the project maintainer: [Akshay Mittal](https://github.com/akshaymittal143)
-* Email: akshaymittal143@gmail.com (verify this email)
+* Email: akshaycanodia@gmail.com 
 
 ## License
 
