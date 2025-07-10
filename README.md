@@ -9,17 +9,21 @@
 
 [Live Demo](https://akshaymittal143-ai-in-the-cloud-demo-app-deploy-r9k6vd.streamlit.app/)
 
-## Table of Contents
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [Development Setup](#development-setup)
-- [Deployment Options](#deployment-options)
-- [Usage Examples](#usage-examples)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [Future Roadmap](#future-roadmap)
-- [License](#license)
+![CloudyBot](resources/local.png)
+
+## Architecture
+
+```mermaid
+graph TD
+    A[User Input] --> B[Streamlit UI]
+    B --> C[CloudyBot Core]
+    C --> D{Model Provider}
+    D -->|OpenAI| E[OpenAI API]
+    D -->|Local| F[Hugging Face FLAN-T5]
+    E --> G[Response]
+    F --> G
+    G --> B
+```
 
 ## Features
 🤖 **Dual AI Backend**
@@ -173,6 +177,22 @@ while True:
 streamlit run app.py --logger.level=debug
 ```
 
+## Project Structure
+
+```
+AI-in-the-Cloud-Demo/
+├── app.py
+├── bot.py
+├── hf_client.py
+├── openai_client.py
+├── logger.py
+├── requirements.txt
+├── README.md
+├── .env
+├── cloudybot/           # (if using package structure)
+├── tests/
+└── ...
+```
 ## Contributing
 
 1. Fork the repository
@@ -212,3 +232,4 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 📧 **Contact**: For support, reach out to [project maintainers](mailto:maintainers@cloudybot.com)
 
+**Happy DevOps Chatting!** ☁️🤖
