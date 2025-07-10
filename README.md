@@ -9,7 +9,7 @@
 
 [Live Demo](https://akshaymittal143-ai-in-the-cloud-demo-app-deploy-r9k6vd.streamlit.app/)
 
-![CloudyBot](resources/local.png)
+![CloudyBot](cloudybot/readme.png)
 
 ## Architecture
 
