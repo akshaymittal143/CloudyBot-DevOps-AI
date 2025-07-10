@@ -120,29 +120,6 @@ OPENAI_MODEL=gpt-3.5-turbo    # or other models
    OPENAI_MODEL = "gpt-3.5-turbo"
    ```
 
-### Running in Google Colab
-
-In a Colab notebook:
-```bash
-!git clone https://github.com/akshaymittal143/CloudyBot-DevOps-AI.git
-%cd CloudyBot-DevOps-AI
-!pip install -r requirements.txt
-```
-
-Set keys in the notebook:
-```python
-import os
-os.environ["OPENAI_API_KEY"] = "your-key"
-```
-
-Interactive Loop:
-```python
-from cloudybot.bot import ask_bot
-while True:
-    query = input("You: ")
-    if query.lower() in ("exit", "quit"): break
-    print("CloudyBot:", ask_bot(query))
-```
 
 ## Usage Examples
 
