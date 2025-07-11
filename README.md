@@ -67,7 +67,14 @@ venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 
 # Configure environment
-cp .env.example .env     # Edit .env with your API keys
+# Option A: OpenAI (requires API key)
+echo "MODEL_PROVIDER=OPENAI" > .env
+echo "OPENAI_API_KEY=your_key_here" >> .env
+
+# Option B: Local model (no API key needed)
+echo "MODEL_PROVIDER=HUGGINGFACE" > .env
+echo "HUGGINGFACE_TEMPERATURE=0.7" >> .env
+echo "HUGGINGFACE_MAX_LENGTH=512" >> .env
 
 # Run application
 streamlit run app.py
@@ -98,9 +105,17 @@ protobuf>=4.21.0    # Protocol buffers
 ### Environment Variables
 Required variables in `.env`:
 ```ini
+# For OpenAI
+MODEL_PROVIDER=OPENAI
 OPENAI_API_KEY=your_api_key_here
-MODEL_PROVIDER=OPENAI          # or HUGGINGFACE
-OPENAI_MODEL=gpt-3.5-turbo    # or other models
+OPENAI_MODEL=gpt-3.5-turbo
+
+# For Hugging Face
+MODEL_PROVIDER=HUGGINGFACE
+HUGGINGFACE_MODEL=google/flan-t5-base
+HUGGINGFACE_TEMPERATURE=0.7
+HUGGINGFACE_MAX_LENGTH=512
+HUGGINGFACE_DEVICE=auto
 ```
 
 ## Deployment Options
@@ -158,18 +173,29 @@ streamlit run app.py --logger.level=debug
 
 ```
 AI-in-the-Cloud-Demo/
-├── app.py
-├── bot.py
-├── hf_client.py
-├── openai_client.py
-├── logger.py
-├── requirements.txt
-├── README.md
-├── .env
-├── cloudybot/           # (if using package structure)
-├── tests/
-└── ...
+├── app.py                    # Main Streamlit application
+├── bot.py                    # AI provider router
+├── hf_client.py             # Hugging Face client
+├── openai_client.py         # OpenAI client
+├── requirements.txt         # Dependencies
+├── requirements-dev.txt     # Development dependencies
+├── README.md               # Documentation
+├── DEMO_CODE_FLOW.md       # Code flow demonstration
+├── CONTRIBUTING.md         # Contributing guidelines
+├── LICENSE                 # Apache 2.0 license
+├── setup.sh               # Environment setup script
+├── packages.txt           # System packages for devcontainer
+├── .gitignore            # Git ignore patterns
+├── .streamlit/           # Streamlit configuration
+│   ├── config.toml       # App configuration
+│   └── secrets.toml      # Secrets (not in repo)
+├── .devcontainer/        # VS Code devcontainer
+├── cloudybot/           # Assets
+│   └── local.png        # Screenshot
+├── tests/               # Test files
+└── venv/               # Virtual environment (not in repo)
 ```
+
 ## Contributing
 
 1. Fork the repository
